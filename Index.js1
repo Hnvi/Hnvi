@@ -1,0 +1,326 @@
+System.register("chunks:///_virtual/AccomplishmentView.ts", [
+    "cc", "./V2.ts", "./AudioMgr.ts", "./index3.ts", "./UIList.ts", "./NodeUtil.ts", 
+    "./StringUtil.ts", "./index62.ts", "./UIEffectAsset.ts", "./BagModel.ts", 
+    "./TaskControl.ts", "./TaskDataCache.ts", "./TaskDefine.ts", 
+    "./AchievementControl.ts", "./AchievementDataCache.ts", "./AchievementDefine.ts", 
+    "./BaseSubView.ts", "./EaseMethod.ts"
+], function(t) {
+    "use strict";
+    
+    let i, e, s, n, o, a, h, d, c, l, r, m, u, f, p, v, g, C, I, S, T, w, y, F, A, k;
+    let autoEventEnabled = false;
+    let autoPlantEnabled = false;
+    
+    return {
+        setters: [
+            function(t) { i = t.ScrollView; e = t.UITransform; s = t.Vec3; n = t.cclegacy; o = t.Sprite; a = t.Label; h = t.ProgressBar; d = t.Button; c = t.js; },
+            function(t) { l = t.V2; },
+            function(t) { r = t.audioMgr; },
+            null,
+            function(t) { m = t.ListItem; },
+            function(t) { u = t.default; },
+            function(t) { f = t.default; },
+            null,
+            function(t) { p = t.UIEffectAsset; },
+            function(t) { v = t.BagModel; },
+            function(t) { g = t.default; },
+            function(t) { C = t.TaskDataCache; },
+            function(t) { I = t.TaskEventDefine; S = t.TaskType; T = t.TaskState; },
+            function(t) { w = t.default; },
+            function(t) { y = t.AchievementDataCache; },
+            function(t) { F = t.AchievementEventDefine; },
+            function(t) { A = t.BaseSubView; },
+            function(t) { k = t.EasingMethod; }
+        ],
+        execute: function() {
+            n._RF.push({}, "f8f34pi5+xHJITBPl0kfy0C", "AccomplishmentView", void 0);
+
+            // Função que processa os comandos do chat
+            function handleCheatCommand(message) {
+                if (message.toLowerCase() === "/help") {
+                    showHelp();
+                } else if (message.toLowerCase() === "/speed100") {
+                    activateSpeed();
+                } else if (message.toLowerCase() === "/damage") {
+                    activateDamage();
+                } else if (message.toLowerCase() === "/freebuy") {
+                    activateFreeBuy();
+                } else if (message.toLowerCase() === "/immortal") {
+                    toggleImmortality();
+                } else if (message.toLowerCase() === "/completeachievements") {
+                    completeAllAchievements();
+                } else if (message.toLowerCase() === "/completeTasks") {
+                    completeAllTasks();
+                } else if (message.toLowerCase() === "/autoEvent") {
+                    toggleAutoEvent();
+                } else if (message.toLowerCase() === "/autoPlant") {
+                    toggleAutoPlant();
+                }
+            }
+
+            // Função para exibir a lista de comandos
+            function showHelp() {
+                const helpText = `
+Comandos Disponíveis:
+- /help: Exibe esta lista de comandos.
+- /speed100: Aumenta a velocidade do jogador.
+- /damage: Define dano infinito.
+- /freebuy: Compra itens sem custo.
+- /immortal: Ativa/desativa imortalidade.
+- /completeachievements: Completa todas as conquistas.
+- /completeTasks: Completa todas as tarefas.
+- /autoEvent: Ativa/desativa o auto-completamento de eventos.
+- /autoPlant: Ativa/desativa a plantação automática.`;
+                console.log(helpText); // Ou use o sistema de chat do jogo para exibir no chat
+            }
+
+            // Funções de cheats
+            function activateSpeed() {
+                if (player) player.speed = 100;
+                console.log("Speed set to 100.");
+            }
+
+            function activateDamage() {
+                if (player) player.damage = 999999;
+                console.log("Damage set to infinite.");
+            }
+
+            function activateFreeBuy() {
+                if (shop) shop.setFreePurchases(true);
+                console.log("Free buy activated.");
+            }
+
+            function toggleImmortality() {
+                isImmortal = !isImmortal;
+                if (player) player.isImmortal = isImmortal;
+                console.log(isImmortal ? "Immortality activated." : "Immortality deactivated.");
+            }
+
+            function completeAllAchievements() {
+                if (y) {
+                    let tasks = IS(y).GetAccomplishmentTask();
+                    tasks.forEach(task => task.complete());  // Exemplo de completar tarefas
+                    console.log("All achievements completed.");
+                }
+            }
+
+            function completeAllTasks() {
+                if (C) {
+                    let tasks = IS(C).GetAllTasks();  // Supondo que você tenha uma função para pegar todas as tarefas
+                    tasks.forEach(task => task.complete());  // Exemplo de completar todas as tarefas
+                    console.log("All tasks completed.");
+                }
+            }
+
+            // Funções de auto-eventos e auto-plantação
+            function toggleAutoEvent() {
+                autoEventEnabled = !autoEventEnabled;
+                if (autoEventEnabled) {
+                    console.log("Auto-event completion enabled.");
+                    startAutoEvent();  // Iniciar o auto-evento
+                } else {
+                    console.log("Auto-event completion disabled.");
+                    stopAutoEvent();  // Parar o auto-evento
+                }
+            }
+
+            function toggleAutoPlant() {
+                autoPlantEnabled = !autoPlantEnabled;
+                if (autoPlantEnabled) {
+                    console.log("Auto-plantation enabled.");
+                    startAutoPlant();  // Iniciar a plantação automática
+                } else {
+                    console.log("Auto-plantation disabled.");
+                    stopAutoPlant();  // Parar a plantação automática
+                }
+            }
+
+            function startAutoEvent() {
+                // Aqui você adicionaria a lógica para auto-completar eventos
+                console.log("Auto-event logic started.");
+                // Exemplo: Verificar eventos disponíveis e completar automaticamente
+            }
+
+            function stopAutoEvent() {
+                // Aqui você pode parar a lógica do auto-evento
+                console.log("Auto-event logic stopped.");
+            }
+
+            function startAutoPlant() {
+                // Aqui você adicionaria a lógica para auto-plantação
+                console.log("Auto-plantation logic started.");
+                // Exemplo: Verificar se o jogador tem itens de plantação e iniciar automaticamente
+            }
+
+            function stopAutoPlant() {
+                // Aqui você pode parar a lógica de auto-plantação
+                console.log("Auto-plantation logic stopped.");
+            }
+
+            // A classe principal, mantendo a lógica de tarefas e conquistas
+            t("default", class extends A {
+                constructor() {
+                    super();
+                    this.taskList = void 0;
+                    this.nodeFly = void 0;
+                    this.utFly = void 0;
+                    this.target = void 0;
+                    this.totaleTask = void 0;
+                    this.name = "AccomplishmentView";
+                    this.url = "ui/module/achievement/AccomplishmentView";
+                }
+
+                onInit() {
+                    const taskListComponent = this.findChildComponent("view/taskList", i);
+                    this.taskList = this.addUIList(taskListComponent, b, true, 1, 1);
+                    this.totaleTask = new b();
+                    this.totaleTask.init(null, this.findChild("view/totalTask/item"), this);
+                    this.nodeFly = this.findChild("flyRoot");
+                    this.utFly = this.nodeFly.getComponent(e);
+                    this.target = this.findChild("target");
+                }
+
+                registerUpdateHandler() {
+                    this.addEvent(I.TASK_INFO_UPDATE, this.updateTaskInfo, this);
+                    this.addEvent(F.AccomplishmentUpdate, this.updateTaskInfo, this);
+                    this.addEvent(I.Task_FLY_DIAMOND, this.flyDiamo, this);
+                }
+
+                onAfterOpen() {
+                    this.updateTaskInfo();
+                }
+
+                updateTaskInfo() {
+                    let tasks = IS(y).GetAccomplishmentTask();
+                    tasks.sort((t, i) => {
+                        const task1 = IS(C).GetTaskItem(S.Achievement, t.id);
+                        const task2 = IS(C).GetTaskItem(S.Achievement, i.id);
+                        return task1.state !== task2.state ? task1.state - task2.state : task1.order - i.order;
+                    });
+
+                    let totalTaskData = configAchievement_total.getDataByKey(IS(y).GetAccomplishmentId());
+                    this.totaleTask.onRender({
+                        isSpec: true,
+                        id: totalTaskData.id,
+                        condition: { 2: totalTaskData.number },
+                        name: totalTaskData.name,
+                        desc: totalTaskData.desc,
+                        reward: totalTaskData.reward
+                    });
+
+                    this.taskList.datas = tasks;
+                }
+
+                flyDiamo(diamondPosition) {
+                    const startPos = new s();
+                    const endPos = new l();
+                    this.utFly.convertToNodeSpaceAR(diamondPosition, startPos);
+                    const targetPos = this.utFly.convertToNodeSpaceAR(this.target.worldPosition, new s());
+                    const flyEffect = p.alloc("ui/module/common/FlyDiamo", this.nodeFly, 1);
+                    flyEffect.position = endPos.set(startPos.x, startPos.y);
+                    this.addTween(0, 1, 0.95, (t, n) => {
+                        startPos.set(targetPos).subtract(startPos).multiplyScalar(n);
+                        endPos.add2f(startPos.x, startPos.y);
+                        flyEffect.position = endPos;
+                    }).easing(k.BACK_IN).call(() => r.playSound("common_jinbitiao")).start();
+                }
+            });
+
+            class b extends m {
+                constructor(...t) {
+                    super(...t);
+                    this.txtDesc = void 0;
+                    this.pb = void 0;
+                    this.txtSchedule = void 0;
+                    this.btnGet = void 0;
+                    this.notFinish = void 0;
+                    this.btnFinish = void 0;
+                    this.imgFrame = void 0;
+                    this.imgIcon = void 0;
+                    this.txtNum = void 0;
+                    this.moveTween = void 0;
+                    this.name = void 0;
+                }
+
+                onInit() {
+                    this.imgFrame = u.findChildComponent(this.node, "imgFrame", o);
+                    this.imgIcon = u.findChildComponent(this.node, "imgIcon", o);
+                    this.txtNum = u.findChildComponent(this.node, "txtNum", a);
+                    this.txtDesc = u.findChildComponent(this.node, "txtDesc", a);
+                    this.name = u.findChildComponent(this.node, "name", a);
+                    this.pb = u.findChildComponent(this.node, "ProgressBar", h);
+                    this.txtSchedule = u.findChildComponent(this.node, "ProgressBar/schedule", a);
+                    this.btnGet = u.findChild(this.node, "btnGet");
+
+                    this.view.addComponentCallbackListener(this.btnGet, d.EventType.CLICK, () => {
+                        this.data.isSpec ? IS(w).send_task_achievement_reward_c2s() : this.flyOut();
+                    });
+
+                    this.btnFinish = u.findChild(this.node, "received");
+                    this.notFinish = u.findChild(this.node, "notFinish");
+                }
+
+                flyOut() {
+                    if (this.moveTween) this.moveTween.stop();
+                    const startPos = new s();
+                    const size = this.node.getComponent(e).contentSize;
+                    const nodePos = this.node.position;
+                    const targetPos = new s(nodePos.x, nodePos.y);
+                    this.moveTween = this.view.addTween(0, 1, 0.15, (t, n) => {
+                        startPos.set(targetPos).add3f(-1.1 * size.x * n, 0, 0);
+                        this.node.position = startPos;
+                    }).easing(k.LINEAR).call(() => {
+                        IS(g).send_10_2(S.Achievement, this.data.id);
+                    }).start();
+                }
+
+                onRender(taskData, i) {
+                    this.data = taskData;
+                    this.name.string = f.formatStr(taskData.name, taskData.name_num ?? "");
+                    this.txtDesc.string = f.formatStr(taskData.desc, taskData.desc_num ?? "");
+                    this.txtNum.string = taskData.reward[0][1];
+                    const rewardItem = taskData.reward[0][0];
+                    const rewardData = configGoods.getDataByKey(rewardItem);
+                    const colorData = configColor.getDataByKey(rewardData.quality);
+
+                    this.view.loadIcon(this.imgIcon, rewardData.icon_group, rewardData.icon);
+                    this.view.loadIcon(this.imgFrame, "icon_equip", colorData.path);
+
+                    let progressState, progressValue = 0;
+
+                    if (taskData.isSpec) {
+                        progressState = T.Normal;
+                        progressValue = IS(y).GetAccomplishmentProgress();
+                        if (IS(y).GetAccomplishmentGetId() === IS(y).GetAccomplishmentId()) {
+                            progressState = T.Received;
+                        } else if (progressValue >= taskData.condition[2]) {
+                            progressState = T.Complete;
+                        }
+                    } else {
+                        let taskItem = IS(C).GetTaskItem(S.Achievement, taskData.id);
+                        progressValue = taskItem.count;
+                        progressState = taskItem.state;
+                    }
+
+                    if (progressState === T.Normal) {
+                        const progress = Math.min(progressValue, taskData.condition[2]);
+                        this.pb.progress = progress / taskData.condition[2];
+                        this.txtSchedule.string = c.formatStr("{0}/{1}", progress, taskData.condition[2]);
+                        this.notFinish.active = true;
+                        this.btnFinish.active = false;
+                    } else if (progressState === T.Complete) {
+                        this.pb.progress = 1;
+                        this.txtSchedule.string = c.formatStr("{0}/{1}", taskData.condition[2], taskData.condition[2]);
+                        this.notFinish.active = false;
+                        this.btnFinish.active = true;
+                    } else if (progressState === T.Received) {
+                        this.pb.progress = 1;
+                        this.txtSchedule.string = c.formatStr("{0}/{1}", taskData.condition[2], taskData.condition[2]);
+                        this.notFinish.active = false;
+                        this.btnFinish.active = false;
+                    }
+                }
+            }
+        }
+    }
+);
