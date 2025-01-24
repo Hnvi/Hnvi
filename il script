@@ -1,0 +1,118 @@
+using UnityEngine;
+
+public class CheatCommandScript : MonoBehaviour
+{
+    public float speedMultiplier = 100f;  // Speed value
+    public float infiniteDamage = 999999f;  // Infinite damage value
+    public float maxHealth = 999999f;  // Max health value
+    public bool invincibility = true;  // Invincibility flag
+    private Player player;
+    private Shop shop;
+
+    void Start()
+    {
+        player = FindObjectOfType<Player>();  // Assuming you have a Player class
+        shop = FindObjectOfType<Shop>();  // Assuming you have a Shop class
+
+        if (player != null && shop != null)
+        {
+            // Register to listen to chat messages
+            ChatSystem.OnMessageReceived += HandleChatCommand;
+        }
+    }
+
+    // Method that handles chat commands
+    void HandleChatCommand(string message)
+    {
+        if (message.ToLower() == "/speed100")  // Command to increase speed
+        {
+            ActivateSpeed();
+        }
+        else if (message.ToLower() == "/damage")  // Command for infinite damage
+        {
+            ActivateDamage();
+        }
+        else if (message.ToLower() == "/freebuy")  // Command for free purchases
+        {
+            ActivateFreeBuy();
+        }
+        else if (message.ToLower() == "/invincibility")  // Command to activate invincibility
+        {
+            ActivateInvincibility();
+        }
+        else if (message.ToLower() == "/maxhealth")  // Command to set max health
+        {
+            ActivateMaxHealth();
+        }
+        else if (message.ToLower() == "/growmushrooms")  // Command to grow mushrooms (example)
+        {
+            ActivateGrowMushrooms();
+        }
+    }
+
+    // Activates speed 100
+    void ActivateSpeed()
+    {
+        if (player != null)
+        {
+            player.speed = speedMultiplier;  // Sets the player's speed
+            Debug.Log("Speed increased to 100!");
+        }
+    }
+
+    // Activates infinite damage
+    void ActivateDamage()
+    {
+        if (player != null)
+        {
+            player.damage = infiniteDamage;  // Sets the player's damage
+            Debug.Log("Infinite damage activated!");
+        }
+    }
+
+    // Activates free purchases
+    void ActivateFreeBuy()
+    {
+        if (shop != null)
+        {
+            shop.SetFreePurchases(true);  // Assuming the Shop has this method
+            Debug.Log("Free purchases activated!");
+        }
+    }
+
+    // Activates invincibility
+    void ActivateInvincibility()
+    {
+        if (player != null)
+        {
+            player.isInvincible = invincibility;  // Assuming player has an isInvincible property
+            Debug.Log("Invincibility activated!");
+        }
+    }
+
+    // Sets player's health to max health
+    void ActivateMaxHealth()
+    {
+        if (player != null)
+        {
+            player.health = maxHealth;  // Assuming player has a health property
+            Debug.Log("Max health set!");
+        }
+    }
+
+    // Grows mushrooms (Example, can be customized based on the game mechanics)
+    void ActivateGrowMushrooms()
+    {
+        // You can define how mushrooms are "grown" in the game
+        Debug.Log("Mushrooms have grown!");
+    }
+
+    void OnDestroy()
+    {
+        // Unsubscribe from the chat system when the script is destroyed
+        if (ChatSystem.OnMessageReceived != null)
+        {
+            ChatSystem.OnMessageReceived -= HandleChatCommand;
+        }
+    }
+}
